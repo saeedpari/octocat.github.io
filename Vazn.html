@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>محاسبه وزن ایده‌آل</title>
+
+<style>
+body{
+    margin:0;
+    padding:0;
+    font-family:tahoma;
+    background:#f3f4f6;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+}
+
+.container{
+    width:350px;
+    background:#fff;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 0 20px rgba(0,0,0,0.1);
+}
+
+h1{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+label{
+    display:block;
+    margin-bottom:8px;
+    font-weight:bold;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:10px;
+    margin-bottom:20px;
+    box-sizing:border-box;
+    font-size:16px;
+}
+
+button{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    background:black;
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+}
+
+.result{
+    margin-top:20px;
+    background:#f9f9f9;
+    padding:15px;
+    border-radius:12px;
+    line-height:2;
+    font-size:17px;
+}
+
+.footer{
+    text-align:center;
+    margin-top:20px;
+    color:#666;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>محاسبه وزن ایده‌آل</h1>
+
+    <label>قد (سانتی متر)</label>
+    <input type="number" id="height">
+
+    <label>وزن (کیلوگرم)</label>
+    <input type="number" id="weight">
+
+    <button onclick="calculateBMI()">محاسبه</button>
+
+    <div class="result" id="result">
+        نتیجه اینجا نمایش داده می‌شود
+    </div>
+
+    <div class="footer">
+        طراح سایت: سعید پری ❤️
+    </div>
+</div>
+
+<script>
+function calculateBMI(){
+
+    var height = parseFloat(document.getElementById("height").value);
+    var weight = parseFloat(document.getElementById("weight").value);
+
+    if(isNaN(height) || isNaN(weight)){
+        alert("لطفاً قد و وزن را وارد کنید");
+        return;
+    }
+
+    var bmi = weight / Math.pow(height / 100, 2);
+    bmi = bmi.toFixed(1);
+
+    var idealWeight = 22 * Math.pow(height / 100, 2);
+    idealWeight = idealWeight.toFixed(1);
+
+    var difference = (weight - idealWeight).toFixed(1);
+
+    var message = "";
+
+    if(difference > 0){
+        message = "شما حدود " + difference + " کیلو اضافه وزن دارید";
+    }
+    else if(difference < 0){
+        message = "شما حدود " + Math.abs(difference) + " کیلو نیاز به افزایش وزن دارید";
+    }
+    else{
+        message = "وزن شما ایده‌آل است 🎉";
+    }
+
+    document.getElementById("result").innerHTML =
+        "<b>BMI:</b> " + bmi + "<br>" +
+        "<b>وزن ایده‌آل:</b> " + idealWeight + " کیلوگرم<br><br>" +
+        "<b>" + message + "</b>";
+}
+</script>
+
+</body>
+</html>
